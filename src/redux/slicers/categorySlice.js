@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 export const categorySlice = createSlice({
   name: 'category',
@@ -24,10 +24,10 @@ export const categorySlice = createSlice({
       state.value = action.payload;
     },
   },
-})
+});
 
 // Action creators are generated for each case reducer function
 // export const { increment, decrement, incrementByAmount } = filterSlice.actions
-export const { setCategory} = categorySlice.actions
+export const { setCategory} = categorySlice.actions;
 
-export default categorySlice.reducer
+export default categorySlice.reducer;

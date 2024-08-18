@@ -1,26 +1,34 @@
 import React, {useEffect, useState} from "react";
+import axios from 'axios';
 
 import Categories from "../components/Categofies";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
-import {useSelector} from "react-redux";
+import Pagination from "../components/Pagination";
+import {setTotal} from '../redux/slicers/paginationSlice';
+
+import {useDispatch, useSelector} from "react-redux";
 
 const Home = () => {
+  const limit = 8;
   const [pizzas, setPizzas] = useState([]);
 
-  const categoryState = useSelector((state) => state.category.value)
-  const sortState = useSelector((state) => state.sort.value)
+  const category = useSelector((state) => state.category.value)
+  const sort = useSelector((state) => state.sort.value)
+  const page = useSelector((state) => state.pagination.page)
+  const total = useSelector((state) => state.pagination.total)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`https://lepihov.by/api/pizzas?category=${categoryState}&sort_by=${sortState}`)
-      .then((res) => {
-        return res.json();
+    axios.get(`https://lepihov.by/api/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${page}`)
+      .then(res => {
+        dispatch(setTotal(res.data.total));
+        setPizzas(res.data.data);
       })
-      .then((data) => setPizzas(data))
       .catch((error) => {
         console.error('Error fetching pizzas:', error);
       });
-  }, [categoryState, sortState]);
+  }, [category, sort, page]);
 
   return (
     <>
@@ -39,6 +47,9 @@ const Home = () => {
                         types={obj.types}/>
           ))
         }
+      </div>
+      <div>
+        <Pagination/>
       </div>
     </>
   );

@@ -1,19 +1,12 @@
 import './scss/app.scss';
 
-
 import {Route, Routes} from 'react-router-dom';
 
 import Header from "./components/Header";
-// import Categories from "./components/Categ  ofies";
-// import Sort from "./components/Sort";
-// import PizzaBlock from "./components/PizzaBlock";
-// import pizzas from './assets/pizzas.json';
 import Home from './pages/Home';
 import NotFount from "./pages/NotFount";
 
 function App() {
-
-
   return (
     <div className="wrapper">
       <div className="header">
