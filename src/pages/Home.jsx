@@ -1,34 +1,51 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
+import qs from 'qs';
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from 'react-router-dom';
 
 import Categories from "../components/Categofies";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../components/Pagination";
-import {setTotal} from '../redux/slicers/paginationSlice';
 
-import {useDispatch, useSelector} from "react-redux";
+import {setFilters, setTotalPages} from '../redux/slicers/filterSlice';
+
+const fetchPizzas = () => {
+
+};
 
 const Home = () => {
   const limit = 8;
   const [pizzas, setPizzas] = useState([]);
 
-  const category = useSelector((state) => state.category.value)
-  const sort = useSelector((state) => state.sort.value)
-  const page = useSelector((state) => state.pagination.page)
-  const total = useSelector((state) => state.pagination.total)
+  const {totalPages, category, currentPage, sort} = useSelector((state) => state.filter);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://lepihov.by/api/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${page}`)
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      // console.log(params)
+      dispatch(setFilters({...params, totalPages}));
+    }
+  }, []);
+
+  useEffect(() => {
+    const queryString = qs.stringify({totalPages, category, currentPage, sort});
+    navigate(`?${queryString}`);
+  }, [totalPages, category, currentPage, sort]);
+
+  useEffect(() => {
+    axios.get(`https://lepihov.by/api/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${currentPage}`)
       .then(res => {
-        dispatch(setTotal(res.data.total));
+        dispatch(setTotalPages(res.data.total));
         setPizzas(res.data.data);
       })
       .catch((error) => {
         console.error('Error fetching pizzas:', error);
       });
-  }, [category, sort, page]);
+  }, [category, sort, currentPage]);
 
   return (
     <>
@@ -36,11 +53,13 @@ const Home = () => {
         <Categories/>
         <Sort/>
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">&nbsp;</h2>
       <div className="content__items">
         {
           pizzas.map((obj) => (
-            <PizzaBlock key={obj.id} title={obj.title}
+            <PizzaBlock key={obj.id}
+                        id={obj.id}
+                        title={obj.title}
                         price={obj.price}
                         imgUrl={obj.imageUrl}
                         sizes={obj.sizes}

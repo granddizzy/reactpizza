@@ -1,9 +1,29 @@
 import React from "react";
 
-function Index({title, price, imgUrl, sizes, types}) {
+import {addProduct} from '../../redux/slicers/cartSlice';
+import {useDispatch, useSelector} from "react-redux";
+
+function Index({id, title, price, imgUrl, sizes, types}) {
   const typesNames = ['тонкое', 'традиционное'];
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
+
+  const {items} = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const addPizzaInCart = (id, activeSize, activeType, price, imgUrl, title) => {
+    dispatch(addProduct({id, size: activeSize, type: activeType, price, imgUrl, title}));
+  }
+
+  const getPizzasInCart = (id) => {
+    const item = items.find(item => item.id === id);
+    if (item) {
+      return items.reduce((count, item) => {
+          return count + item.count;
+      }, 0);
+    }
+    return 0;
+  }
 
   return (
     <div className="pizza-block">
@@ -31,7 +51,8 @@ function Index({title, price, imgUrl, sizes, types}) {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{price}</div>
-        <button className="button button--outline button--add">
+        <button onClick={() => addPizzaInCart(id, activeSize, activeType, price, imgUrl, title)}
+                className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -45,7 +66,7 @@ function Index({title, price, imgUrl, sizes, types}) {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          <i>{getPizzasInCart(id)}</i>
         </button>
       </div>
     </div>
