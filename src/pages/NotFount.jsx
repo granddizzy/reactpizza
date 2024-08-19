@@ -1,8 +1,11 @@
 import React from "react";
+import sadnessImg from '../assets/img/sadness.webp';
 
 const NotFount = () => {
   return (
-    <h1>Ничего не найдено</h1>
+    <>
+      <img src={sadnessImg}/>
+    </>
   );
 }
 

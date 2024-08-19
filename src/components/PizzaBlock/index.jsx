@@ -16,20 +16,19 @@ function Index({id, title, price, imgUrl, sizes, types}) {
   }
 
   const getPizzasInCart = (id) => {
-    const item = items.find(item => item.id === id);
-    if (item) {
-      return items.reduce((count, item) => {
-          return count + item.count;
-      }, 0);
-    }
-    return 0;
+    return items.reduce((count, item) => {
+      if (item.id === id) {
+        return count + item.count;
+      }
+      return count;
+    }, 0);
   }
 
   return (
     <div className="pizza-block">
       <img
         className="pizza-block__image"
-        src={imgUrl}
+        src={process.env.PUBLIC_URL + '/' + imgUrl}
         alt="Pizza"
       />
       <h4 className="pizza-block__title">{title}</h4>

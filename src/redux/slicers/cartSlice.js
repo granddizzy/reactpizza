@@ -23,7 +23,7 @@ export const cartSlice = createSlice({
       // if (itemToDelete) {
       //state.items = state.items.filter(item => item.id !== action.payload);
       state.items.splice(action.payload, 1);
-      state.totalPrice -= itemToDelete.price;
+      state.totalPrice -= itemToDelete.price * itemToDelete.count;
       // }
     },
     clear: (state) => {
