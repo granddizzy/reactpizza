@@ -11,6 +11,7 @@ export const filterSlice = createSlice({
   reducers: {
     setCategory: (state, action) => {
       state.category = +action.payload;
+      state.currentPage = 1;
     },
     setCurrentPage: (state, action) => {
       state.currentPage = +action.payload;

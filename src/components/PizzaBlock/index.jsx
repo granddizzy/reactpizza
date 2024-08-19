@@ -5,8 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 function Index({id, title, price, imgUrl, sizes, types}) {
   const typesNames = ['тонкое', 'традиционное'];
-  const [activeType, setActiveType] = React.useState(0);
-  const [activeSize, setActiveSize] = React.useState(0);
+  const [activeType, setActiveType] = React.useState(types[0]);
+  const [activeSize, setActiveSize] = React.useState(sizes[sizes.length - 1]);
 
   const {items} = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -44,7 +44,8 @@ function Index({id, title, price, imgUrl, sizes, types}) {
         <ul>
           {
             sizes.map((size, index) => (
-              <li key={index} className={activeSize === index ? 'active': ''} onClick={() =>  setActiveSize(index)}>{size} см.</li>
+              <li key={index} className={activeSize === size ? 'active' : ''}
+                  onClick={() => setActiveSize(size)}>{size} см.</li>
             ))
           }
         </ul>
