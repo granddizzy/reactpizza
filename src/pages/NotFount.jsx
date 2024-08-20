@@ -1,15 +1,18 @@
 import React from "react";
-import sadnessImg from '../assets/img/sadness.webp';
+import sadnessImg from '../assets/img/sadness.png';
 import {Link} from "react-router-dom";
 
 const NotFount = () => {
   return (
     <>
-      <img className="img404" src={sadnessImg}/>
+      <div className="notfound-content">
+        <h1>404</h1>
+        <img className="img404" src={sadnessImg}/>
+      </div>
       <div className="notfound__bottom-buttons">
-        <a href="/" className="button button--outline button--add go-back-btn">
-          <Link to="/"><span>Вернуться назад</span></Link>
-        </a>
+        <Link to="/" className="button button--outline button--add go-back-btn">
+          <span>Вернуться назад</span>
+        </Link>
       </div>
     </>
   );

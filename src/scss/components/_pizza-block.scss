@@ -73,8 +73,17 @@
   }
 }
 
+
+.pizza-block-skeleton {
+  width: 23%;
+}
+
 @media (max-width: 1100px) {
   .pizza-block {
+    width: 31%;
+  }
+  
+  .pizza-block-skeleton {
     width: 31%;
   }
 }
@@ -83,10 +92,18 @@
   .pizza-block {
     width: 47%;
   }
+  
+  .pizza-block-skeleton {
+    width: 47%;
+  }
 }
 
 @media (max-width: 600px) {
   .pizza-block {
+    width: 100%;
+  }
+  
+  .pizza-block-skeleton {
     width: 100%;
   }
 }

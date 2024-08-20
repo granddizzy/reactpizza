@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom';
 import Categories from "../components/Categofies";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
+import Skeleton from "../components/PizzaBlock/skeleton";
 import Pagination from "../components/Pagination";
 
 import {setFilters, setTotalPages} from '../redux/slicers/filterSlice';
@@ -46,6 +47,10 @@ const Home = () => {
       });
   }, [category, sort, currentPage]);
 
+  const skeletons = Array.from({ length: limit }, (_, index) => (
+    <Skeleton key={index} />
+  ));
+
   return (
     <>
       <div className="content__top">
@@ -54,7 +59,7 @@ const Home = () => {
       </div>
       <h2 className="content__title">&nbsp;</h2>
       <div className="content__items">
-        {
+        {pizzas.length > 0 ?
           pizzas.map((obj) => (
             <PizzaBlock key={obj.id}
                         id={obj.id}
@@ -63,7 +68,7 @@ const Home = () => {
                         imgUrl={obj.imageUrl}
                         sizes={obj.sizes}
                         types={obj.types}/>
-          ))
+          )) : skeletons
         }
       </div>
       <div>

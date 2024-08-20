@@ -7,7 +7,7 @@ function Header() {
         <img width="38" src={logoSvg} alt="Pizza logo"/>
         <div>
           <h1>Romio Pizza</h1>
-          <p>самая вкусная пицца в этом секторе галлактики</p>
+          <p>самая вкусная пицца в этом секторе галактики</p>
         </div>
       </div>
     </Link>

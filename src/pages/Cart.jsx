@@ -56,7 +56,7 @@ const Cart = () => {
 
                 <span onClick={() => {
                   dispatch(clear())
-                }}>Очистить корзину</span>
+                }}>Очистить</span>
               </div>
             </div>
             <div className="cart__items">
@@ -125,21 +125,21 @@ const Cart = () => {
             </div>
             <div className="cart__bottom">
               <div className="cart__bottom-details">
-                <span> Всего пицц: <b>{pizzaCount(items)} шт.</b> </span>
-                <span> Сумма заказа: <b>{totalPrice}</b> </span>
+                <span> Всего: <b>{pizzaCount(items)} шт.</b> </span>
+                <span> Итого: <b>{totalPrice}</b> </span>
               </div>
               <div className="cart__bottom-buttons">
-                <a href="/" className="button button--outline button--add go-back-btn">
+                <Link to="/" className="button button--outline button--add go-back-btn">
                   <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" stroke-width="1.5" stroke-linecap="round"
                           stroke-linejoin="round"/>
                   </svg>
 
-                  <Link to="/"><span>Вернуться назад</span></Link>
-                </a>
-                <div className="button pay-btn">
-                  <Link className="" to="/payment"><span>Оплатить сейчас</span></Link>
-                </div>
+                  <span>Вернуться назад</span>
+                </Link>
+                <Link to="/payment" className="button pay-btn">
+                  <span>Оплатить сейчас</span>
+                </Link>
               </div>
             </div>
           </>
