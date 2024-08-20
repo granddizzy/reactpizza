@@ -21,7 +21,7 @@ const Cart = () => {
   const typesNames = ['тонкое', 'традиционное'];
 
   return (
-    <div className="container container--cart">
+    <div className="container--cart">
       <div className="cart">
 
         {items.length > 0 ? (
@@ -59,7 +59,7 @@ const Cart = () => {
                 }}>Очистить корзину</span>
               </div>
             </div>
-            <div className="content__items">
+            <div className="cart__items">
               {items.map((cartItem, index) => (
                 <div key={index} className="cart__item">
                   <div className="cart__item-img">
