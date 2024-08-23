@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import axios from 'axios';
+import React, {useEffect} from "react";
 import qs from 'qs';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom';
@@ -10,45 +9,44 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/skeleton";
 import Pagination from "../components/Pagination";
 
-import {setFilters, setTotalPages} from '../redux/slicers/filterSlice';
-
-const fetchPizzas = () => {
-
-};
+import {setFilters} from '../redux/slicers/filterSlice';
+import {fetchPizzas} from '../redux/slicers/pizzasSlice';
 
 const Home = () => {
-  const limit = 8;
-  const [pizzas, setPizzas] = useState([]);
-
-  const {totalPages, category, currentPage, sort} = useSelector((state) => state.filter);
+  const limitByPage = 8;
+  //const [pizzas, setPizzas] = useState([]);
+  const {pizzas, totalPages} = useSelector((state) => state.pizzas);
+  const {category, currentPage, sort} = useSelector((state) => state.filter);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      dispatch(setFilters({...params, totalPages}));
+      dispatch(setFilters({...params}));
     }
   }, []);
 
   useEffect(() => {
-    const queryString = qs.stringify({totalPages, category, currentPage, sort});
+    const queryString = qs.stringify({category, currentPage, sort});
     navigate(`?${queryString}`);
-  }, [totalPages, category, currentPage, sort]);
+  }, [category, currentPage, sort]);
 
   useEffect(() => {
-    axios.get(`https://lepihov.by/api/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${currentPage}`)
-      .then(res => {
-        dispatch(setTotalPages(res.data.total));
-        setPizzas(res.data.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching pizzas:', error);
-      });
+    // setPizzas(res.data.data);
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchPizzas({category, sort, limit: limitByPage, currentPage}));
+      } catch (error) {
+        console.error('Error dispatching fetchPizzas:', error);
+      }
+    }
+
+    fetchData();
   }, [category, sort, currentPage]);
 
-  const skeletons = Array.from({ length: limit }, (_, index) => (
-    <Skeleton key={index} />
+  const skeletons = Array.from({length: limitByPage}, (_, index) => (
+    <Skeleton key={index}/>
   ));
 
   return (
