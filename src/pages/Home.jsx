@@ -34,15 +34,7 @@ const Home = () => {
 
   useEffect(() => {
     // setPizzas(res.data.data);
-    const fetchData = async () => {
-      try {
-        await dispatch(fetchPizzas({category, sort, limit: limitByPage, currentPage}));
-      } catch (error) {
-        console.error('Error dispatching fetchPizzas:', error);
-      }
-    }
-
-    fetchData();
+    dispatch(fetchPizzas({category, sort, limit: limitByPage, currentPage}));
   }, [category, sort, currentPage]);
 
   const skeletons = Array.from({length: limitByPage}, (_, index) => (

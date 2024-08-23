@@ -5,7 +5,7 @@ import axios from "axios";
 // это объект) тд и какой-то нашей асинхронной логикой
 export const fetchPizzas = createAsyncThunk(
   'pizzas/fetchPizzas',
-  async ({category, sort, limit, currentPage}) => {
+  async ({category, sort, limit, currentPage}, thunkAPI) => {
     const res = await axios.get(`https://lepihov.by/api/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${currentPage}`);
     return res.data;
   }
@@ -34,7 +34,7 @@ export const pizzasSlice = createSlice({
       console.error('Error fetching pizzas:', action.error);
     }).addCase(fetchPizzas.fulfilled, (state, action) => {
       state.pizzas = action.payload.data;
-      state.totalPages = action.payload.totalPages;
+      state.totalPages = action.payload.total;
     });
   }
 });

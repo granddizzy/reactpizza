@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCurrentPage} from '../../redux/slicers/filterSlice';
 
 function Index() {
-  const {currentPage, totalPages} = useSelector((state) => state.filter)
+  const {currentPage} = useSelector((state) => state.filter)
+  const {totalPages} = useSelector((state) => state.pizzas)
   // const total = useSelector((state) => state.filter)
   const dispatch = useDispatch();
   const onPageChange = (page) => {
