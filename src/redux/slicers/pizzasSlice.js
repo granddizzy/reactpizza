@@ -1,12 +1,14 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from "axios";
 
+import config from '../../config';
+
 // здесь создается ФУНКЦИЯ к которой добавляются еще свойства pending, fulfilled, rejected (потому что в js функция
 // это объект) тд и какой-то нашей асинхронной логикой
 export const fetchPizzas = createAsyncThunk(
   'pizzas/fetchPizzas',
   async ({category, sort, limit, currentPage}, thunkAPI) => {
-    const res = await axios.get(`https://lepihov.by/api/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${currentPage}`);
+    const res = await axios.get(`${config.apiUrl}/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${currentPage}`);
     return res.data;
   }
 );

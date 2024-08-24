@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import NotFount from "./pages/NotFount";
 import Cart from "./pages/Cart";
 import HeaderCart from "./components/HeaderCart";
+import Pizza from "./pages/Pizza";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/cart" element={<Cart/>}/>
-            {<Route path="*" element={<NotFount/>}/>}
+            <Route path="/pizza/:id" element={<Pizza/>}/>
+            <Route path="*" element={<NotFount/>}/>
           </Routes>
         </div>
       </div>

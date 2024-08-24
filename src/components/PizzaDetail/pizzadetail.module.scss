@@ -1,0 +1,114 @@
+.pizzaBlock {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 65px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  //&:not(:nth-of-type(4n)) {
+  //  margin-right: 35px;
+  //}
+  
+  &__image {
+    width: 60%;
+  }
+  
+  &__rightBlock {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    
+    &__title {
+      font-size: 20px;
+      font-weight: 900;
+      //letter-spacing: 1%;
+      margin-bottom: 20px;
+      min-height: 60px;
+    }
+    
+    &__selector {
+      display: flex;
+      background-color: #f3f3f3;
+      border-radius: 10px;
+      flex-direction: column;
+      padding: 6px;
+      width: 100%;
+      
+      ul {
+        display: flex;
+        flex: 1;
+        
+        &:first-of-type {
+          margin-bottom: 6px;
+        }
+        
+        li {
+          padding: 8px;
+          flex: 1;
+          cursor: pointer;
+          font-weight: 600;
+          font-size: 14px;
+          
+          &.active {
+            background: #ffffff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+            border-radius: 5px;
+            cursor: auto;
+          }
+        }
+      }
+    }
+  }
+  
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  &__price {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: 0.015em;
+  }
+}
+
+
+.pizzaBlock-skeleton {
+  width: 23%;
+}
+
+//@media (max-width: 1100px) {
+//  .pizzaBlock {
+//    width: 31%;
+//  }
+//
+//  .pizzaBlock-skeleton {
+//    width: 31%;
+//  }
+//}
+//
+//@media (max-width: 800px) {
+//  .pizzaBlock {
+//    width: 47%;
+//  }
+//
+//  .pizzaBlock-skeleton {
+//    width: 47%;
+//  }
+//}
+//
+//@media (max-width: 600px) {
+//  .pizzaBlock {
+//    width: 100%;
+//  }
+//
+//  .pizzaBlock-skeleton {
+//    width: 100%;
+//  }
+//}

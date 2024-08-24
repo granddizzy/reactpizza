@@ -2,17 +2,24 @@ import React from "react";
 
 import {addProduct} from '../../redux/slicers/cartSlice';
 import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 
-function Index({id, title, price, imgUrl, sizes, types}) {
+function Index({id, title, imgUrl, sizes, types}) {
   const typesNames = ['тонкое', 'традиционное'];
   const [activeType, setActiveType] = React.useState(types[0]);
-  const [activeSize, setActiveSize] = React.useState(sizes[sizes.length - 1]);
+  const [activeSize, setActiveSize] = React.useState(sizes[sizes.length - 1].size);
+  const [activePrice, setActivePrice] = React.useState(sizes[sizes.length - 1].price);
 
   const {items} = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const addPizzaInCart = (id, activeSize, activeType, price, imgUrl, title) => {
     dispatch(addProduct({id, size: activeSize, type: activeType, price, imgUrl, title}));
+  }
+
+  const changeSize = (el) => {
+    setActiveSize(el.size);
+    setActivePrice(el.price)
   }
 
   const getPizzasInCart = (id) => {
@@ -26,12 +33,14 @@ function Index({id, title, price, imgUrl, sizes, types}) {
 
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src={process.env.PUBLIC_URL + '/' + imgUrl}
-        alt="Pizza"
-      />
-      <h4 className="pizza-block__title">{title}</h4>
+      <Link to={`pizza/${id}`}>
+        <img
+          className="pizza-block__image"
+          src={process.env.PUBLIC_URL + '/' + imgUrl}
+          alt="Pizza"
+        />
+        <h4 className="pizza-block__title">{title}</h4>
+      </Link>
       <div className="pizza-block__selector">
         <ul>
           {
@@ -42,16 +51,16 @@ function Index({id, title, price, imgUrl, sizes, types}) {
         </ul>
         <ul>
           {
-            sizes.map((size, index) => (
-              <li key={index} className={activeSize === size ? 'active' : ''}
-                  onClick={() => setActiveSize(size)}>{size} см.</li>
+            sizes.map((el, index) => (
+              <li key={index} className={activeSize === el.size ? 'active' : ''}
+                  onClick={() => changeSize(el)}>{el.size} см.</li>
             ))
           }
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">{price}</div>
-        <button onClick={() => addPizzaInCart(id, activeSize, activeType, price, imgUrl, title)}
+        <div className="pizza-block__price">{activePrice}</div>
+        <button onClick={() => addPizzaInCart(id, activeSize, activeType, activePrice, imgUrl, title)}
                 className="button button--outline button--add">
           <svg
             width="12"
@@ -65,7 +74,7 @@ function Index({id, title, price, imgUrl, sizes, types}) {
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
+          {/*<span>Добавить</span>*/}
           <i>{getPizzasInCart(id)}</i>
         </button>
       </div>

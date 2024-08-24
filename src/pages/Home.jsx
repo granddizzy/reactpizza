@@ -54,7 +54,6 @@ const Home = () => {
             <PizzaBlock key={obj.id}
                         id={obj.id}
                         title={obj.title}
-                        price={obj.price}
                         imgUrl={obj.imageUrl}
                         sizes={obj.sizes}
                         types={obj.types}/>
