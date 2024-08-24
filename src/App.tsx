@@ -8,6 +8,7 @@ import NotFount from "./pages/NotFount";
 import Cart from "./pages/Cart";
 import HeaderCart from "./components/HeaderCart";
 import Pizza from "./pages/Pizza";
+import React from "react";
 
 function App() {
   return (
