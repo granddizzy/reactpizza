@@ -16,6 +16,11 @@
       font-weight: 900;
       margin-bottom: 20px;
       min-height: 60px; }
+    .pizzaBlock__rightBlock__deccription {
+      font-size: 20px;
+      font-weight: 300;
+      margin-bottom: 20px;
+      min-height: 60px; }
     .pizzaBlock__rightBlock__selector {
       display: flex;
       background-color: #f3f3f3;
@@ -53,5 +58,14 @@
 
 .pizzaBlock-skeleton {
   width: 23%; }
+
+@media (max-width: 800px) {
+  .pizzaBlock {
+    flex-wrap: wrap;
+    margin-bottom: 35px; }
+    .pizzaBlock__image {
+      width: 100%; }
+    .pizzaBlock__rightBlock__title {
+      min-height: auto; } }
 
 /*# sourceMappingURL=pizzadetail.module.css.map */

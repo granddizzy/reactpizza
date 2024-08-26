@@ -28,6 +28,14 @@
       min-height: 60px;
     }
     
+    &__deccription {
+      font-size: 20px;
+      font-weight: 300;
+      //letter-spacing: 1%;
+      margin-bottom: 20px;
+      min-height: 60px;
+    }
+    
     &__selector {
       display: flex;
       background-color: #f3f3f3;
@@ -93,15 +101,26 @@
 //  }
 //}
 //
-//@media (max-width: 800px) {
-//  .pizzaBlock {
-//    width: 47%;
-//  }
-//
-//  .pizzaBlock-skeleton {
-//    width: 47%;
-//  }
-//}
+@media (max-width: 800px) {
+  
+  .pizzaBlock {
+    //width: 47%;
+    flex-wrap: wrap;
+    &__image {
+      width: 100%;
+    }
+    margin-bottom: 35px;
+    &__rightBlock {
+      &__title {
+        min-height: auto;
+      }
+    }
+  }
+
+  //.pizzaBlock-skeleton {
+  //  width: 47%;
+  //}
+}
 //
 //@media (max-width: 600px) {
 //  .pizzaBlock {

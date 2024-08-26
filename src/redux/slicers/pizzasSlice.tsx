@@ -30,6 +30,7 @@ export interface Pizza {
   imgUrl: string;
   sizes: Size[];
   types: number[];
+  description: string;
 }
 
 const initialState = {

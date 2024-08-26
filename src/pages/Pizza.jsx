@@ -30,7 +30,8 @@ const Pizza = () => {
           title={pizza.title}
           imgUrl={pizza.imageUrl}
           sizes={pizza.sizes}
-          types={pizza.types}/> : <Skeleton/>
+          types={pizza.types}
+          description={pizza.description}/> : <Skeleton/>
       }
     </>
   );

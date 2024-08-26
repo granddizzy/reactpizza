@@ -101,6 +101,7 @@ export const cartSlice = createSlice({
       if (item.count < 10) {
         item.count++;
         state.totalPrice += item.price;
+        state.totalCount++;
         saveCartState(state);
       }
     },
@@ -109,6 +110,7 @@ export const cartSlice = createSlice({
       if (item.count > 1) {
         item.count--;
         state.totalPrice -= item.price;
+        state.totalCount--;
         saveCartState(state);
       }
     }
