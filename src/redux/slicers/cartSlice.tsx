@@ -10,17 +10,49 @@ export interface Item {
   size: number;
 }
 
-export interface CartState {
+export interface  CartState {
   items: Item[];
   totalPrice: number;
   totalCount: number;
 }
 
-const initialState: CartState = {
-  items: [],
-  totalPrice: 0,
-  totalCount: 0
+// const initialState: CartState = {
+//   items: [],
+//   totalPrice: 0,
+//   totalCount: 0
+// };
+
+const loadCartState = (): CartState => {
+  try {
+    const serializedState = localStorage.getItem('cartState');
+    if (serializedState === null) {
+      return {
+        items: [],
+        totalPrice: 0,
+        totalCount: 0
+      };
+    }
+    return JSON.parse(serializedState);
+  } catch (e) {
+    console.error('Could not load cart state from localStorage', e);
+    return {
+      items: [],
+      totalPrice: 0,
+      totalCount: 0
+    };
+  }
 };
+
+const saveCartState = (state: CartState) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('cartState', serializedState);
+  } catch (e) {
+    console.error('Could not save cart state to localStorage', e);
+  }
+};
+
+const initialState: CartState = loadCartState();
 
 export const cartSlice = createSlice({
   name: 'cart',
@@ -37,6 +69,7 @@ export const cartSlice = createSlice({
         state.totalPrice += action.payload.price;
       }
       state.totalCount++;
+      saveCartState(state);
     },
     delProduct: (state, action) => {
       const itemToDelete = state.items[action.payload];
@@ -46,22 +79,26 @@ export const cartSlice = createSlice({
       state.totalPrice -= itemToDelete.price * itemToDelete.count;
       // }
       state.totalCount--;
+      saveCartState(state);
     },
     clear: (state) => {
       state.items = [];
       state.totalPrice = 0;
       state.totalCount = 0;
+      saveCartState(state);
     },
     increaseCount: (state, action) => {
       const item = state.items[action.payload];
       item.count++;
       state.totalPrice += item.price;
+      saveCartState(state);
     },
     decreaseCount: (state, action) => {
       const item = state.items[action.payload];
       if (item.count > 1) {
         item.count--;
         state.totalPrice -= item.price;
+        saveCartState(state);
       }
     }
   }
