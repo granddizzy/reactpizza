@@ -1,21 +1,7 @@
 import React from "react";
-import {CartState, Item, clear, decreaseCount, delProduct, increaseCount} from "../../redux/slicers/cartSlice";
+import {CartState, Item, clear, decreaseCount, delProductByCartID, increaseCount} from "../../redux/slicers/cartSlice";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-// interface Item {
-//     count: number;
-//     imgUrl: string;
-//     price: number;
-//     title: string;
-//     type: number;
-//     size: number;
-// }
-
-// interface CartState {
-//     items: Item[];
-//     totalPrice: number;
-//     totalCount: number;
-// }
 
 interface State {
     cart: CartState;
@@ -26,14 +12,8 @@ const Index: React.FC = () => {
     const dispatch = useDispatch();
 
     const removeProduct = (id: number) => {
-        dispatch(delProduct(id));
+        dispatch(delProductByCartID(id));
     }
-
-    // const pizzaCount = (items: Item[]) => {
-    //     return items.reduce((count, item) => {
-    //         return count + item.count;
-    //     }, 0);
-    // }
 
     const typesNames = ['тонкое', 'традиционное'];
 
