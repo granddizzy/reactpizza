@@ -1,22 +1,24 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
+import {Item} from "../../redux/slicers/cartSlice";
 
 function HeaderCart() {
-  const {totalPrice, items} = useSelector((state) => state.cart)
+  const {totalPrice, items} = useSelector((state: RootState) => state.cart)
 
-  const pizzasCount = (items) => {
-    return items.reduce((count, item)=>{
+  const pizzasCount = (items: Item[]) => {
+    return items.reduce((count: number, item) => {
       return count + item.count;
     }, 0);
   }
 
   return (
-    <div className="header__cart">
-      <Link to="/cart" className="button button--cart">
-        <span>{totalPrice}</span>
-        <div className="button__delimiter"></div>
-        <svg
+      <div className="header__cart">
+        <Link to="/cart" className="button button--cart">
+          <span>{totalPrice}</span>
+          <div className="button__delimiter"></div>
+          <svg
           width="18"
           height="18"
           viewBox="0 0 18 18"

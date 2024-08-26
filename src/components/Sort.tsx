@@ -1,26 +1,27 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSort} from '../redux/slicers/filterSlice';
+import {RootState} from "../redux/store";
 
 function Sort() {
   const [open, setOpen] = React.useState(false);
   // const [activeSortType, setSortType] = React.useState(0);
   const sortTypes = ['популярности', 'цене', 'алфавиту'];
 
-  const activeSortType = useSelector((state) => state.filter.sort)
+  const activeSortType = useSelector((state: RootState) => state.filter.sort)
   const dispatch = useDispatch();
 
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
-  function onSelectType(index) {
+  function onSelectType(index: number) {
     // setSortType(index);
     dispatch(setSort(index));
     setOpen(false);
   }
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (sortRef.current && !sortRef.current.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (sortRef.current && !sortRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };

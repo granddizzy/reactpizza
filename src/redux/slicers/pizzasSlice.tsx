@@ -3,22 +3,43 @@ import axios from "axios";
 
 import config from '../../config';
 
+
 // здесь создается ФУНКЦИЯ к которой добавляются еще свойства pending, fulfilled, rejected (потому что в js функция
 // это объект) тд и какой-то нашей асинхронной логикой
 export const fetchPizzas = createAsyncThunk(
-  'pizzas/fetchPizzas',
-  async ({category, sort, limit, currentPage}, thunkAPI) => {
-    const res = await axios.get(`${config.apiUrl}/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${currentPage}`);
-    return res.data;
-  }
+    'pizzas/fetchPizzas',
+    async ({category, sort, limit, currentPage}: {
+      category: string;
+      sort: number;
+      limit: number,
+      currentPage: number
+    }, thunkAPI) => {
+      const res = await axios.get(`${config.apiUrl}/pizzas?category=${category}&sort_by=${sort}&limit=${limit}&page=${currentPage}`);
+      return res.data;
+    }
 );
+
+export interface Size {
+  size: number;
+  price: number;
+}
+
+export interface Pizza {
+  id: number;
+  title: string;
+  imgUrl: string;
+  sizes: Size[];
+  types: number[];
+}
+
+const initialState = {
+  pizzas: [],
+  totalPages: 1,
+}
 
 export const pizzasSlice = createSlice({
   name: 'pizzas',
-  initialState: {
-    pizzas: [],
-    totalPages: 1,
-  },
+  initialState,
   reducers: {
     setPizzas: (state, action) => {
       state.pizzas = action.payload;

@@ -1,28 +1,38 @@
 import React from "react";
+import {RootState} from "../../redux/store";
 
 import {addProduct} from '../../redux/slicers/cartSlice';
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import {Size} from "../../redux/slicers/pizzasSlice";
 
-function Index({id, title, imgUrl, sizes, types}) {
+interface IndexProps {
+  id: number;
+  title: string;
+  imgUrl: string;
+  sizes: Size[];
+  types: number[];
+}
+
+function Index({id, title, imgUrl, sizes, types}: IndexProps) {
   const typesNames = ['тонкое', 'традиционное'];
   const [activeType, setActiveType] = React.useState(types[0]);
   const [activeSize, setActiveSize] = React.useState(sizes[sizes.length - 1].size);
   const [activePrice, setActivePrice] = React.useState(sizes[sizes.length - 1].price);
 
-  const {items} = useSelector((state) => state.cart);
+  const {items} = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
 
-  const addPizzaInCart = (id, activeSize, activeType, price, imgUrl, title) => {
-    dispatch(addProduct({id, size: activeSize, type: activeType, price, imgUrl, title}));
+  const addPizzaInCart = (id: number, activeSize: number, activeType: number, price: number, imgUrl: string, title: string) => {
+    dispatch(addProduct({id, size: activeSize, type: activeType, price, imgUrl, title, count: 1}));
   }
 
-  const changeSize = (el) => {
+  const changeSize = (el: Size) => {
     setActiveSize(el.size);
     setActivePrice(el.price)
   }
 
-  const getPizzasInCart = (id) => {
+  const getPizzasInCart = (id: number) => {
     return items.reduce((count, item) => {
       if (item.id === id) {
         return count + item.count;
@@ -44,16 +54,17 @@ function Index({id, title, imgUrl, sizes, types}) {
       <div className="pizza-block__selector">
         <ul>
           {
-            types.map((typeIndex, index) => (
-              <li key={index} className={activeType === typeIndex ? 'active': ''} onClick={() =>  setActiveType(typeIndex)}>{typesNames[typeIndex]}</li>
+            types.map((typeIndex: number, index: number) => (
+                <li key={index} className={activeType === typeIndex ? 'active' : ''}
+                    onClick={() => setActiveType(typeIndex)}>{typesNames[typeIndex]}</li>
             ))
           }
         </ul>
         <ul>
           {
-            sizes.map((el, index) => (
-              <li key={index} className={activeSize === el.size ? 'active' : ''}
-                  onClick={() => changeSize(el)}>{el.size} см.</li>
+            sizes.map((el, index: number) => (
+                <li key={index} className={activeSize === el.size ? 'active' : ''}
+                    onClick={() => changeSize(el)}>{el.size} см.</li>
             ))
           }
         </ul>

@@ -1,7 +1,9 @@
 import React from "react";
-import {addProduct} from "../../redux/slicers/cartSlice";
+import {Item, CartState, addProduct} from "../../redux/slicers/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import styles from './pizzadetail.module.css';
+import {RootState} from "../../redux/store";
+import {Size} from "../../redux/slicers/pizzasSlice";
 
 interface IndexProps {
   id: number;
@@ -11,23 +13,23 @@ interface IndexProps {
   types: number[];
 }
 
-interface Size {
-  size: number;
-  price: number;
-}
+// interface Size {
+//   size: number;
+//   price: number;
+// }
 
-interface Item {
-  id: number;
-  count: number;
-}
+// interface Item {
+//   id: number;
+//   count: number;
+// }
 
-interface CartState {
-  items: Item[];
-}
+// interface CartState {
+//   items: Item[];
+// }
 
-interface State {
-  cart: CartState;
-}
+// interface State {
+//   cart: CartState;
+// }
 
 const Index: React.FC<IndexProps> = ({id, title, imgUrl, sizes, types}) => {
   // const {totalPrice, items} = useSelector((state) => state.cart);
@@ -37,10 +39,10 @@ const Index: React.FC<IndexProps> = ({id, title, imgUrl, sizes, types}) => {
   const [activeType, setActiveType] = React.useState(types[0]);
   const [activeSize, setActiveSize] = React.useState<number>(sizes[sizes.length - 1].size);
   const [activePrice, setActivePrice] = React.useState<number>(sizes[sizes.length - 1].price);
-  const items = useSelector((state: State) => state.cart.items);
+  const items = useSelector((state: RootState) => state.cart.items);
 
   const addPizzaInCart = (id: number, activeSize: number, activeType: number, price: number, imgUrl: string, title: string) => {
-    dispatch(addProduct({id, size: activeSize, type: activeType, price, imgUrl, title}));
+    dispatch(addProduct({id, size: activeSize, type: activeType, price, imgUrl, title, count: 1}));
   }
 
   const getPizzasInCart = (id: number) => {

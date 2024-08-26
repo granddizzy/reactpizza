@@ -1,14 +1,15 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { setCategory } from '../redux/slicers/filterSlice';
+import {RootState} from "../redux/store";
 
 function Categories() {
   // const [activeIndex, setActiveIndex] = React.useState(0)
 
-  const activeIndex = useSelector((state) => state.filter.category)
+  const activeIndex = useSelector((state: RootState) => state.filter.category)
   const dispatch = useDispatch();
 
-  const onClickCategory = (index) => {
+  const onClickCategory = (index: number) => {
     //setActiveIndex(index);
     dispatch(setCategory(index));
   }

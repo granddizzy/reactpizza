@@ -14,3 +14,5 @@ export const store = configureStore({
     // pagination: paginationReducer,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>
