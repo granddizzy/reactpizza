@@ -87,7 +87,7 @@ export const cartSlice = createSlice({
       state.items.splice(action.payload, 1);
       state.totalPrice -= itemToDelete.price * itemToDelete.count;
       // }
-      state.totalCount--;
+      state.totalCount = state.totalCount - itemToDelete.count;
       saveCartState(state);
     },
     clear: (state) => {

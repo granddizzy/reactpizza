@@ -5,14 +5,7 @@ import {RootState} from "../../redux/store";
 import {Item} from "../../redux/slicers/cartSlice";
 
 function HeaderCart() {
-  const {totalPrice, items} = useSelector((state: RootState) => state.cart)
-
-  const pizzasCount = (items: Item[]) => {
-    return items.reduce((count: number, item) => {
-      return count + item.count;
-    }, 0);
-  }
-
+  const {totalCount, totalPrice, items} = useSelector((state: RootState) => state.cart)
   return (
       <div className="header__cart">
         <Link to="/cart" className="button button--cart">
@@ -47,7 +40,7 @@ function HeaderCart() {
             strokeLinejoin="round"
           />
         </svg>
-        <span>{pizzasCount(items)}</span>
+        <span>{totalCount}</span>
       </Link>
     </div>
   );
